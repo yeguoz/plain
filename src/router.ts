@@ -37,7 +37,7 @@ const routes: RouteRecordRaw[] = [
 export default createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() { // to, from, savedPosition
-    return { top: 0 }
-  },
+  // scrollBehavior() { // to, from, savedPosition，切换路由会回到页面顶部，目录切换不友好
+  //   return { top: 0 }
+  // },
 })

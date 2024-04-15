@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue'
+import { onMounted, onUnmounted, reactive } from 'vue'
 import { getFriends, getFriendsByComments } from '../api'
 import Utterance from '../components/Utterance.vue'
 import type { Friend } from '../types'
-
 const myName = import.meta.env.V_NAME
 const myUrl = import.meta.env.V_URL
 const myAvatar = import.meta.env.V_AVATAR
@@ -11,16 +10,15 @@ const myDesc = import.meta.env.V_DESC
 const utt = import.meta.env.V_UTTERANCES_CODE
 const friendRepo = import.meta.env.V_FRIENDS_REPO || ''
 const friends: Friend[] = reactive([])
-
 document.title = `${import.meta.env.V_TITLE} | 友链`
-
 onMounted(async () => {
   if (friendRepo)
-    {Object.assign(friends, await getFriends({}))
-    console.log(friends);}
-    
+    Object.assign(friends, await getFriends({}))
   else
     Object.assign(friends, await getFriendsByComments())
+})
+onUnmounted(() => {
+  document.title = import.meta.env.V_TITLE
 })
 </script>
 
